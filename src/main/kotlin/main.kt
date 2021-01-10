@@ -1,4 +1,5 @@
 import androidx.compose.desktop.Window
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -27,7 +28,7 @@ fun main() = Window(title = "Todolist") {
     MaterialTheme {
         Column {
             ListItem(
-                icon = {
+                trailing = {
                     Switch(
                         checked = hideDone,
                         onCheckedChange = { checked -> hideDone = checked }
@@ -35,6 +36,9 @@ fun main() = Window(title = "Todolist") {
                 },
                 text = {
                     Text("Hide finished")
+                },
+                modifier = Modifier.clickable {
+                    hideDone = !hideDone
                 }
             )
 
@@ -56,14 +60,13 @@ fun main() = Window(title = "Todolist") {
             )
 
             Divider(
-                Modifier
-                    .padding(0.dp, 8.dp)
+                Modifier.padding(0.dp, 8.dp)
             )
 
             TextField(
                 value = newTodoInput,
                 onValueChange = { newValue -> newTodoInput = newValue },
-                Modifier
+                modifier = Modifier
                     .padding(16.dp, 16.dp, 16.dp, 0.dp)
             )
 
