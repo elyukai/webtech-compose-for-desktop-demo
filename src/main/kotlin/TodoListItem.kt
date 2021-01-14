@@ -9,7 +9,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TodoListItem(todo: Todo, onCheckedChange: (Int, Boolean) -> Unit) {
+fun TodoListItem(todo: Todo, onCheckedChange: (Int, Boolean) -> Unit ) {
     ListItem(
         icon = {
             Checkbox(
