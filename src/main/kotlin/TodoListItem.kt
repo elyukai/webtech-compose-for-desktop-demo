@@ -3,7 +3,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,11 +15,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TodoListItem(todo: Todo, onCheckedChange: (Int, Boolean) -> Unit) {
+fun TodoListItem(todo: Todo, onCheckedChange: (Int, Boolean) -> Unit, onRemove: (Int) -> Unit) {
     ListItem(
         icon = {
             Checkbox(
-                checked = todo.done,
+                todo.done,
                 onCheckedChange = { checked ->
                     onCheckedChange(todo.id, checked)
                 }
@@ -25,7 +27,7 @@ fun TodoListItem(todo: Todo, onCheckedChange: (Int, Boolean) -> Unit) {
         },
         text = {
             Text(
-                text = todo.text,
+                todo.text,
                 style = if (todo.done) {
                     AmbientTextStyle.current.plus(
                         TextStyle(
@@ -35,6 +37,15 @@ fun TodoListItem(todo: Todo, onCheckedChange: (Int, Boolean) -> Unit) {
                     )
                 } else AmbientTextStyle.current
             )
+        },
+        trailing = {
+            IconButton(
+                onClick = {
+                    onRemove(todo.id)
+                }
+            ) {
+                Icon(Icons.Filled.Delete)
+            }
         },
         modifier = Modifier.padding(0.dp).clickable {
             onCheckedChange(todo.id, !todo.done)
