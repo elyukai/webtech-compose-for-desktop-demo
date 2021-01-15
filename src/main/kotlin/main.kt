@@ -1,15 +1,12 @@
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+
 
 
 fun main() = Window(title = "Todolist") {
@@ -22,13 +19,13 @@ fun main() = Window(title = "Todolist") {
                 )
         )
     }
-
     var newTodoInput by remember { mutableStateOf("") }
-    var hideDone by remember { mutableStateOf(false) }
-    var id = 3
+    var hideDone: Boolean by remember { mutableStateOf(false) }
+    var id by remember { mutableStateOf(3) }
 
     MaterialTheme {
         ScrollableColumn {
+            TopAppBar(title = { Text(text = "TodoApp") })
             ListItem(
                     trailing = {
                         Switch(
@@ -36,9 +33,7 @@ fun main() = Window(title = "Todolist") {
                                 onCheckedChange = { checked -> hideDone = checked }
                         )
                     },
-                    text = {
-                        Text("Hide finished")
-                    },
+                    text = { Text("Hide finished") },
                     modifier = Modifier.clickable {
                         hideDone = !hideDone
                     }
@@ -88,16 +83,15 @@ fun main() = Window(title = "Todolist") {
                             todoMp.forEach { (key, item) -> if (item.done) todoMp -= key }
                         },
                         enabled = todoMp.isNotEmpty(),
-                        modifier = Modifier.padding(16.dp, 8.dp, 16.dp, 0.dp)
+                        modifier = Modifier.padding(0.dp, 8.dp, 16.dp, 0.dp)
                 ) {
                     Text("Remove todo")
                 }
-
             }
-
-            Divider(
-                    Modifier.padding(0.dp, 8.dp)
-            )
+            Spacer(Modifier.preferredHeight(16.dp))
         }
     }
 }
+
+
+

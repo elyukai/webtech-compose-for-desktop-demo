@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TodoList(todos: List<Todo>, onCheckedChange: (Int, Boolean) -> Unit, hideDone: Boolean) {
+fun TodoList(todos: List<Todo>, onCheckedChange: (Int, Boolean) -> Unit, hideDone: Boolean){
     Column {
         val filteredTodos = todos.filter {
             if (it.done) {
