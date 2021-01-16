@@ -1,7 +1,4 @@
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -13,20 +10,24 @@ import androidx.compose.ui.unit.dp
 fun TodoManager(add: (String) -> Unit) {
     var newTodoInput by remember { mutableStateOf("") }
 
-    TextField(
-        value = newTodoInput,
-        onValueChange = { newValue -> newTodoInput = newValue },
-        modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 0.dp)
-    )
+    Column(Modifier.padding(16.dp)) {
+        TextField(
+            value = newTodoInput,
+            onValueChange = { newValue -> newTodoInput = newValue },
+            modifier = Modifier.fillMaxSize()
+        )
 
-    Button(
-        onClick = {
-            add(newTodoInput)
-            newTodoInput = ""
-        },
-        enabled = newTodoInput.isNotEmpty(),
-        modifier = Modifier.padding(16.dp, 8.dp)
-    ) {
-        Text("Add todo")
+        Spacer(modifier = Modifier.preferredHeight(16.dp))
+
+        Button(
+            onClick = {
+                add(newTodoInput)
+                newTodoInput = ""
+            },
+            enabled = newTodoInput.isNotEmpty(),
+            modifier = Modifier.preferredHeight(48.dp)
+        ) {
+            Text("Add todo".toUpperCase())
+        }
     }
 }

@@ -5,11 +5,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
 
 
-fun main() = Window(title = "TodoApp") {
+fun main() = Window(title = "TodoApp", size = IntSize(360, 600)) {
     App()
 }
 

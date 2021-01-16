@@ -1,20 +1,16 @@
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 
 @Composable
 fun Header(hideDone: Boolean, onVisibilityChange: (Boolean) -> Unit) {
-    var showOptions: Boolean by remember { mutableStateOf(false) }
+    var showOptions by remember { mutableStateOf(false) }
 
     TopAppBar(
         title = { Text(text = "TodoApp") },
@@ -25,20 +21,12 @@ fun Header(hideDone: Boolean, onVisibilityChange: (Boolean) -> Unit) {
                     expanded = showOptions,
                     onDismissRequest = { showOptions = false }
                 ) {
-                    DropdownMenuItem({ onVisibilityChange(!hideDone) }) {
+                    DropdownMenuItem({ onVisibilityChange(!hideDone) }, Modifier.preferredWidth(200.dp)) {
                         Text(if (hideDone) "Show done" else "Hide done")
                     }
                 }
             }
-        }
+        },
+        modifier = Modifier.zIndex(10f).shadow(4.dp)
     )
-
-    TabRow(selectedTabIndex = 0) {
-        Tab(true, {}) {
-            Text("View")
-        }
-        Tab(false, {}) {
-            Text("Manage")
-        }
-    }
 }
