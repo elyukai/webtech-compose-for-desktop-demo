@@ -14,41 +14,37 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
+val doneStyle = TextStyle(
+    color = Color(160, 160, 160),
+    textDecoration = TextDecoration.LineThrough
+)
+
 @Composable
-fun TodoListItem(todo: Todo, onCheckedChange: (Int, Boolean) -> Unit, onRemove: (Int) -> Unit) {
+fun TodoListItem(todo: Todo, onChange: (Int, Boolean) -> Unit, onDelete: (Int) -> Unit) {
     ListItem(
         icon = {
             Checkbox(
                 todo.done,
-                onCheckedChange = { checked ->
-                    onCheckedChange(todo.id, checked)
-                }
+                onCheckedChange = { checked -> onChange(todo.id, checked) }
             )
         },
         text = {
             Text(
                 todo.text,
-                style = if (todo.done) {
-                    AmbientTextStyle.current.plus(
-                        TextStyle(
-                            color = Color(160, 160, 160),
-                            textDecoration = TextDecoration.LineThrough
-                        )
-                    )
-                } else AmbientTextStyle.current
+                style =
+                    if (todo.done) AmbientTextStyle.current.plus(doneStyle)
+                    else AmbientTextStyle.current
             )
         },
         trailing = {
-            IconButton(
-                onClick = {
-                    onRemove(todo.id)
-                }
-            ) {
+            IconButton(onClick = { onDelete(todo.id) }) {
                 Icon(Icons.Filled.Delete)
             }
         },
-        modifier = Modifier.padding(0.dp).clickable {
-            onCheckedChange(todo.id, !todo.done)
-        }
+        modifier = Modifier
+            .padding(0.dp)
+            .clickable {
+                onChange(todo.id, !todo.done)
+            }
     )
 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 
 
 
-fun main() = Window(title = "Todolist") {
+fun main() = Window(title = "TodoApp") {
     App()
 }
 

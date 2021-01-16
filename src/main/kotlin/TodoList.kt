@@ -9,18 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TodoList(todos: List<Todo>, onCheckedChange: (Int, Boolean) -> Unit, onRemove: (Int) -> Unit, hideDone: Boolean){
+fun TodoList(todos: List<Todo>, onChange: (Int, Boolean) -> Unit, onDelete: (Int) -> Unit, hideDone: Boolean){
     Column {
-        val filteredTodos = todos.filter {
-            if (it.done) {
-                !hideDone
-            } else true
-        }
-
-        if (filteredTodos.isEmpty())
-            Text(text = "Nothing to do! Yay!", modifier = Modifier.padding(16.dp))
-        else filteredTodos.forEach {
-            TodoListItem(it, onCheckedChange, onRemove)
+        todos.filter {
+            if (it.done) !hideDone else true
+        }.forEach {
+            TodoListItem(it, onChange, onDelete)
         }
     }
 }
